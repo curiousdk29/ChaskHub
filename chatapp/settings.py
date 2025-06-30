@@ -24,8 +24,9 @@ SECRET_KEY = 'django-insecure-tl6hifji+%kh@$mo^a%kk%iqn&+=q76e+y$cd!)rxh=xtr8w6#
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+import os
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*'] if 'RAILWAY_STATIC_URL' in os.environ else []
 
 
 # Application definition
