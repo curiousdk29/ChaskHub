@@ -28,6 +28,7 @@ import os
 
 ALLOWED_HOSTS = ['chaskhub-production.up.railway.app', 'localhost', '127.0.0.1']
 
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'tasks',
     'rest_framework.authtoken',
+    'corsheaders',
 ]
 
 
@@ -63,6 +65,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "https://chaskhub-production.up.railway.app",  
+    "http://localhost:8000",    
 ]
 
 ROOT_URLCONF = 'chatapp.urls'

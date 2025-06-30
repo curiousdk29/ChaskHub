@@ -5,6 +5,7 @@ from .models import Message, Task
 from .serializers import MessageSerializer, TaskSerializer
 from django.contrib.auth.models import User
 from django.db import models
+import cv2
 import os
 import numpy as np
 from django.contrib.auth.models import User
@@ -33,7 +34,7 @@ class MessageViewSet(viewsets.ModelViewSet):
         return Message.objects.none()
 
     def perform_create(self, serializer):
-        serializer.save()
+        serializer.save(sender=self.request.user)
 
 
 class TaskViewSet(viewsets.ModelViewSet):
