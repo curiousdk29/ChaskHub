@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-tl6hifji+%kh@$mo^a%kk%iqn&+=q76e+y$cd!)rxh=xtr8w6#
 DEBUG = True
 import os
 
-ALLOWED_HOSTS = ['*'] if 'RAILWAY_STATIC_URL' in os.environ else []
+ALLOWED_HOSTS = ['chaskhub-production.up.railway.app', 'localhost', '127.0.0.1']
+
 
 
 # Application definition
