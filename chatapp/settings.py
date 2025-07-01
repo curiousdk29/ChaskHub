@@ -25,8 +25,8 @@ SECRET_KEY = 'django-insecure-tl6hifji+%kh@$mo^a%kk%iqn&+=q76e+y$cd!)rxh=xtr8w6#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['your-app-name.onrender.com', 'localhost', '127.0.0.1']
-CSRF_TRUSTED_ORIGINS = ['https://your-app-name.onrender.com']
+ALLOWED_HOSTS = ['chatapp-6g6e.onrender.com', 'localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['chatapp-6g6e.onrender.com']
 
 # Application definition
 
