@@ -1,5 +1,5 @@
 from urllib import request
-from django.shortcuts import render,redirect
+from django.shortcuts import render
 from rest_framework import viewsets, permissions 
 from .models import Message, Task
 from .serializers import MessageSerializer, TaskSerializer
@@ -34,7 +34,7 @@ class MessageViewSet(viewsets.ModelViewSet):
         return Message.objects.none()
 
     def perform_create(self, serializer):
-        serializer.save(sender=self.request.user)
+        serializer.save()
 
 
 class TaskViewSet(viewsets.ModelViewSet):
@@ -66,28 +66,3 @@ class TaskViewSet(viewsets.ModelViewSet):
 def frontend(request):
             return render(request, 'index.html')
 
-
-def register_page(request):
-    return render(request, 'register.html')
-
-@csrf_exempt  # Only for development/testing. Use proper CSRF tokens in production.
-def register_user(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            username = data.get('username')
-            password = data.get('password')
-
-            if not username or not password:
-                return JsonResponse({'error': 'Username and password are required'}, status=400)
-
-            if User.objects.filter(username=username).exists():
-                return JsonResponse({'error': 'Username already taken'}, status=400)
-
-            user = User.objects.create_user(username=username, password=password)
-            return JsonResponse({'message': 'User registered successfully'}, status=201)
-
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
-
-    return JsonResponse({'error': 'Only POST method allowed'}, status=405)

@@ -24,12 +24,9 @@ SECRET_KEY = 'django-insecure-tl6hifji+%kh@$mo^a%kk%iqn&+=q76e+y$cd!)rxh=xtr8w6#
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-import os
 
-ALLOWED_HOSTS = ['chaskhub-production.up.railway.app', 'localhost', '127.0.0.1']
-
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ['your-app-name.onrender.com', 'localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://your-app-name.onrender.com']
 
 # Application definition
 
@@ -43,7 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'tasks',
     'rest_framework.authtoken',
-    'corsheaders',
 ]
 
 
@@ -65,13 +61,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-]
-
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = [
-    "https://chaskhub-production.up.railway.app",  
-    "http://localhost:8000",    
 ]
 
 ROOT_URLCONF = 'chatapp.urls'
