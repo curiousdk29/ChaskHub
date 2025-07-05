@@ -1,18 +1,12 @@
-from urllib import request
+
 from django.shortcuts import render
 from rest_framework import viewsets, permissions 
 from .models import Message, Task
 from .serializers import MessageSerializer, TaskSerializer
 from django.contrib.auth.models import User
 from django.db import models
-import cv2
-import os
-import numpy as np
-from django.contrib.auth.models import User
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate, login
-from django.conf import settings
 import json
 
 class MessageViewSet(viewsets.ModelViewSet):
@@ -66,3 +60,28 @@ class TaskViewSet(viewsets.ModelViewSet):
 def frontend(request):
             return render(request, 'index.html')
 
+
+def register_page(request):
+    return render(request, 'register.html')  # This serves the HTML form
+
+@csrf_exempt  # For development only – use CSRF tokens in production
+def register_user(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            username = data.get('username')
+            password = data.get('password')
+
+            if not username or not password:
+                return JsonResponse({'error': 'Username and password are required'}, status=400)
+
+            if User.objects.filter(username=username).exists():
+                return JsonResponse({'error': 'Username already exists'}, status=400)
+
+            User.objects.create_user(username=username, password=password)
+            return JsonResponse({'message': 'User registered successfully'}, status=201)
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Only POST method allowed'}, status=405)
